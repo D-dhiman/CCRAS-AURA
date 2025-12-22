@@ -7,92 +7,278 @@ import { useState } from "react";
 const quizQuestions = [
   {
     id: 1,
-    question: "How would you describe your body frame?",
+    question: "My body is",
     options: [
-      { id: "a", text: "Thin and light, I find it hard to gain weight", dosha: "vata" },
-      { id: "b", text: "Medium build, well-proportioned", dosha: "pitta" },
-      { id: "c", text: "Solid and sturdy, I gain weight easily", dosha: "kapha" },
+      { id: "a", text: "Small", dosha: "vata" },
+      { id: "b", text: "Rough", dosha: "vata" },
+      { id: "c", text: "Medium", dosha: "pitta" },
+      { id: "d", text: "Strong", dosha: "pitta" },
+      { id: "e", text: "Smooth", dosha: "kapha" },
+      { id: "f", text: "Oily", dosha: "kapha" },
+      { id: "g", text: "Gentle", dosha: "kapha" },
     ],
   },
   {
     id: 2,
-    question: "How is your skin typically?",
+    question: "My physique is",
     options: [
-      { id: "a", text: "Dry, thin, and prone to roughness", dosha: "vata" },
-      { id: "b", text: "Warm, oily, or prone to redness", dosha: "pitta" },
-      { id: "c", text: "Thick, smooth, and well-moisturized", dosha: "kapha" },
+      { id: "a", text: "Thin", dosha: "vata" },
+      { id: "b", text: "Weak", dosha: "vata" },
+      { id: "c", text: "Medium", dosha: "pitta" },
+      { id: "d", text: "Tender", dosha: "pitta" },
+      { id: "e", text: "Heavy", dosha: "kapha" },
+      { id: "f", text: "Attractive", dosha: "kapha" },
     ],
   },
   {
     id: 3,
-    question: "How do you handle cold weather?",
+    question: "My skin is",
     options: [
-      { id: "a", text: "I get cold easily and dislike it", dosha: "vata" },
-      { id: "b", text: "I tolerate cold well, prefer cooler temperatures", dosha: "pitta" },
-      { id: "c", text: "I handle cold okay but prefer warm weather", dosha: "kapha" },
+      { id: "a", text: "Dry", dosha: "vata" },
+      { id: "b", text: "Rough", dosha: "vata" },
+      { id: "c", text: "Thin", dosha: "vata" },
+      { id: "d", text: "Scaly", dosha: "vata" },
+      { id: "e", text: "Soft", dosha: "kapha" },
+      { id: "f", text: "Reddish", dosha: "pitta" },
+      { id: "g", text: "Oily", dosha: "kapha" },
+      { id: "h", text: "Thick", dosha: "kapha" },
     ],
   },
   {
     id: 4,
-    question: "How is your appetite typically?",
+    question: "My complexion is",
     options: [
-      { id: "a", text: "Variable - sometimes hungry, sometimes not", dosha: "vata" },
-      { id: "b", text: "Strong and regular, I get irritable if I skip meals", dosha: "pitta" },
-      { id: "c", text: "Steady but moderate, I can skip meals easily", dosha: "kapha" },
+      { id: "a", text: "Dark", dosha: "vata" },
+      { id: "b", text: "Reddish", dosha: "pitta" },
+      { id: "c", text: "With spots", dosha: "pitta" },
+      { id: "d", text: "Moles and pimples", dosha: "pitta" },
+      { id: "e", text: "Fair", dosha: "kapha" },
     ],
   },
   {
     id: 5,
-    question: "How would you describe your sleep?",
+    question: "My hair is",
     options: [
-      { id: "a", text: "Light sleeper, often wake up during the night", dosha: "vata" },
-      { id: "b", text: "Moderate sleep, may wake up feeling warm", dosha: "pitta" },
-      { id: "c", text: "Deep and long, hard to wake up in the morning", dosha: "kapha" },
+      { id: "a", text: "Rough", dosha: "vata" },
+      { id: "b", text: "Dry", dosha: "vata" },
+      { id: "c", text: "Soft", dosha: "kapha" },
+      { id: "d", text: "Brownish", dosha: "pitta" },
+      { id: "e", text: "Thin", dosha: "vata" },
+      { id: "f", text: "Oily", dosha: "kapha" },
+      { id: "g", text: "Thick", dosha: "kapha" },
     ],
   },
   {
     id: 6,
-    question: "How do you typically respond to stress?",
+    question: "My nails are",
     options: [
-      { id: "a", text: "Anxious, worried, overthinking", dosha: "vata" },
-      { id: "b", text: "Irritable, frustrated, critical", dosha: "pitta" },
-      { id: "c", text: "Withdrawn, avoidant, unmotivated", dosha: "kapha" },
+      { id: "a", text: "Cracked", dosha: "vata" },
+      { id: "b", text: "Dark", dosha: "vata" },
+      { id: "c", text: "Reddish", dosha: "pitta" },
+      { id: "d", text: "Sharp", dosha: "pitta" },
+      { id: "e", text: "Whitish", dosha: "kapha" },
+      { id: "f", text: "Soft", dosha: "kapha" },
+      { id: "g", text: "Shining", dosha: "kapha" },
     ],
   },
   {
     id: 7,
-    question: "How is your digestion?",
+    question: "My teeth are",
     options: [
-      { id: "a", text: "Irregular - bloating, gas, constipation", dosha: "vata" },
-      { id: "b", text: "Strong but prone to acidity or heartburn", dosha: "pitta" },
-      { id: "c", text: "Slow but steady, may feel heavy after eating", dosha: "kapha" },
+      { id: "a", text: "Small size", dosha: "vata" },
+      { id: "b", text: "Irregular", dosha: "vata" },
+      { id: "c", text: "Cracked", dosha: "vata" },
+      { id: "d", text: "With gaps", dosha: "vata" },
+      { id: "e", text: "Medium size", dosha: "pitta" },
+      { id: "f", text: "Sometimes with discoloration", dosha: "pitta" },
+      { id: "g", text: "Large size", dosha: "kapha" },
+      { id: "h", text: "White", dosha: "kapha" },
+      { id: "i", text: "Regular", dosha: "kapha" },
     ],
   },
   {
     id: 8,
-    question: "How would you describe your energy levels?",
+    question: "My gums are",
     options: [
-      { id: "a", text: "Comes in bursts, I tire easily", dosha: "vata" },
-      { id: "b", text: "High and intense, but can burn out", dosha: "pitta" },
-      { id: "c", text: "Steady and sustainable throughout the day", dosha: "kapha" },
+      { id: "a", text: "Dry", dosha: "vata" },
+      { id: "b", text: "Weak", dosha: "vata" },
+      { id: "c", text: "Soft", dosha: "kapha" },
+      { id: "d", text: "Tender", dosha: "pitta" },
+      { id: "e", text: "Strong", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 9,
+    question: "My joints are",
+    options: [
+      { id: "a", text: "Weak", dosha: "vata" },
+      { id: "b", text: "Make cracking sound on movement", dosha: "vata" },
+      { id: "c", text: "Flaccid", dosha: "kapha" },
+      { id: "d", text: "Lax", dosha: "kapha" },
+      { id: "e", text: "Strong", dosha: "pitta" },
+      { id: "f", text: "Stable", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 10,
+    question: "My activities are",
+    options: [
+      { id: "a", text: "Hyperactive", dosha: "vata" },
+      { id: "b", text: "Moderate", dosha: "pitta" },
+      { id: "c", text: "Slow", dosha: "kapha" },
+      { id: "d", text: "Measured", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 11,
+    question: "My sleep is",
+    options: [
+      { id: "a", text: "Irregular", dosha: "vata" },
+      { id: "b", text: "Disturbed", dosha: "vata" },
+      { id: "c", text: "Moderate", dosha: "pitta" },
+      { id: "d", text: "Sound", dosha: "kapha" },
+      { id: "e", text: "Deep", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 12,
+    question: "My appetite is",
+    options: [
+      { id: "a", text: "Irregular", dosha: "vata" },
+      { id: "b", text: "Heavy", dosha: "kapha" },
+      { id: "c", text: "Uncontrollable", dosha: "pitta" },
+      { id: "d", text: "Less but regular", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 13,
+    question: "My thirst is",
+    options: [
+      { id: "a", text: "Irregular", dosha: "vata" },
+      { id: "b", text: "Excessive", dosha: "pitta" },
+      { id: "c", text: "Less", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 14,
+    question: "My preferred tastes are",
+    options: [
+      { id: "a", text: "Sweet", dosha: "kapha" },
+      { id: "b", text: "Sour", dosha: "pitta" },
+      { id: "c", text: "Salty", dosha: "pitta" },
+      { id: "d", text: "Bitter", dosha: "vata" },
+      { id: "e", text: "Astringent", dosha: "vata" },
+      { id: "f", text: "Pungent", dosha: "pitta" },
+    ],
+  },
+  {
+    id: 15,
+    question: "My bowel habits are",
+    options: [
+      { id: "a", text: "Usually constipated", dosha: "vata" },
+      { id: "b", text: "Dark coloured stools", dosha: "pitta" },
+      { id: "c", text: "Loose", dosha: "pitta" },
+      { id: "d", text: "Yellowish stools", dosha: "pitta" },
+      { id: "e", text: "Semisolid stools with regular bowel habits", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 16,
+    question: "My cold tolerance is",
+    options: [
+      { id: "a", text: "Very less tolerance", dosha: "vata" },
+      { id: "b", text: "Prefer cold conditions", dosha: "pitta" },
+      { id: "c", text: "Medium tolerance", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 17,
+    question: "I sweat",
+    options: [
+      { id: "a", text: "Less", dosha: "vata" },
+      { id: "b", text: "More", dosha: "pitta" },
+      { id: "c", text: "My sweat has a foul smell", dosha: "pitta" },
+    ],
+  },
+  {
+    id: 18,
+    question: "My eyes are",
+    options: [
+      { id: "a", text: "Dry", dosha: "vata" },
+      { id: "b", text: "Drooping lids", dosha: "kapha" },
+      { id: "c", text: "Moderate size", dosha: "pitta" },
+      { id: "d", text: "Reddish", dosha: "pitta" },
+      { id: "e", text: "Big", dosha: "kapha" },
+      { id: "f", text: "Clear vision", dosha: "pitta" },
+    ],
+  },
+  {
+    id: 19,
+    question: "My voice / speech is",
+    options: [
+      { id: "a", text: "Stammering", dosha: "vata" },
+      { id: "b", text: "Weak", dosha: "vata" },
+      { id: "c", text: "High pitch", dosha: "pitta" },
+      { id: "d", text: "Deep rooted", dosha: "kapha" },
+      { id: "e", text: "Strong", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 20,
+    question: "My concentration is",
+    options: [
+      { id: "a", text: "Very low", dosha: "vata" },
+      { id: "b", text: "Medium", dosha: "pitta" },
+      { id: "c", text: "Good", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 21,
+    question: "My intelligence is",
+    options: [
+      { id: "a", text: "Good grasping power but poor memory", dosha: "vata" },
+      { id: "b", text: "Good grasping power with medium memory", dosha: "pitta" },
+      { id: "c", text: "Good memory and retention power", dosha: "kapha" },
+    ],
+  },
+  {
+    id: 22,
+    question: "My nature is",
+    options: [
+      { id: "a", text: "Confused", dosha: "vata" },
+      { id: "b", text: "Vivacious", dosha: "vata" },
+      { id: "c", text: "Anxious", dosha: "vata" },
+      { id: "d", text: "Frightful", dosha: "vata" },
+      { id: "e", text: "Hot and short tempered", dosha: "pitta" },
+      { id: "f", text: "Impatient", dosha: "pitta" },
+      { id: "g", text: "Passionate", dosha: "pitta" },
+      { id: "h", text: "Calm and quiet with lots of patience", dosha: "kapha" },
     ],
   },
 ];
 
+
 const DoshaQuiz = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<number, string[]>>({});
 
   const question = quizQuestions[currentQuestion];
   const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
 
   const handleAnswer = (dosha: string) => {
-    setAnswers({ ...answers, [currentQuestion]: dosha });
-    
-    if (currentQuestion < quizQuestions.length - 1) {
-      setTimeout(() => setCurrentQuestion(currentQuestion + 1), 300);
-    }
+    setAnswers(prev => {
+      const currentSelections = prev[currentQuestion] || [];
+
+      const updatedSelections = currentSelections.includes(dosha)
+        ? currentSelections.filter(d => d !== dosha)
+        : [...currentSelections, dosha];
+
+      return {
+        ...prev,
+        [currentQuestion]: updatedSelections
+      };
+    });
   };
 
   const handleNext = () => {
@@ -101,15 +287,23 @@ const DoshaQuiz = () => {
     } else {
       // Calculate dominant dosha
       const doshaCount = { vata: 0, pitta: 0, kapha: 0 };
-      Object.values(answers).forEach((dosha) => {
-        doshaCount[dosha as keyof typeof doshaCount]++;
+      Object.values(answers).forEach((doshaArray) => {
+        doshaArray.forEach((dosha) => {
+          doshaCount[dosha as keyof typeof doshaCount]++;
+        });
       });
+
       
       const dominantDosha = Object.entries(doshaCount).reduce((a, b) =>
         a[1] > b[1] ? a : b
       )[0];
       
-      navigate("/dosha-result", { state: { dosha: dominantDosha } });
+      navigate("/dosha-result", {
+        state: {
+          dominantDosha,
+          scores: doshaCount
+        }
+      });
     }
   };
 
@@ -173,13 +367,13 @@ const DoshaQuiz = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleAnswer(option.dosha)}
                   className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
-                    answers[currentQuestion] === option.dosha
+                    answers[currentQuestion]?.includes(option.dosha)
                       ? "border-primary bg-primary/10"
                       : "border-border bg-card hover:border-primary/50"
                   }`}
                 >
                   <span className={`text-sm ${
-                    answers[currentQuestion] === option.dosha
+                    answers[currentQuestion]?.includes(option.dosha)
                       ? "text-primary font-medium"
                       : "text-foreground"
                   }`}>
@@ -199,7 +393,7 @@ const DoshaQuiz = () => {
           size="lg"
           className="w-full"
           onClick={handleNext}
-          disabled={!answers[currentQuestion]}
+          disabled={!answers[currentQuestion] || answers[currentQuestion].length === 0}
         >
           {currentQuestion < quizQuestions.length - 1 ? (
             <>

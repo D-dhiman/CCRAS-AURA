@@ -28,11 +28,16 @@ const doshaDetails = {
   },
 };
 
+interface DoshaScores {
+  [key: string]: number;
+}
+
 const DoshaResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dosha = (location.state?.dosha as "vata" | "pitta" | "kapha") || "vata";
   const details = doshaDetails[dosha];
+  const scores: DoshaScores = location.state?.scores || {};
 
   return (
     <div className="min-h-screen flex flex-col px-6 py-8 bg-background overflow-hidden">
@@ -111,6 +116,37 @@ const DoshaResult = () => {
             ))}
           </div>
         </motion.div>
+
+        {/* Dosha Scores Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="mt-8"
+        >
+          <h3 className="text-sm font-medium text-foreground mb-2 text-center">
+            Dosha Scores
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left border border-primary/20 rounded-lg">
+              <thead className="bg-primary/10">
+                <tr>
+                  <th className="px-4 py-2 border-b">Dosha</th>
+                  <th className="px-4 py-2 border-b">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(scores).map(([key, value]) => (
+                  <tr key={key} className="border-b hover:bg-primary/5">
+                    <td className="px-4 py-2 capitalize">{key}</td>
+                    <td className="px-4 py-2">{value}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
 
         {/* Tips */}
         <motion.div
