@@ -35,7 +35,7 @@ interface DoshaScores {
 const DoshaResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dosha = (location.state?.dosha as "vata" | "pitta" | "kapha") || "vata";
+  const dosha = (location.state?.dominantDosha as "vata" | "pitta" | "kapha") || "vata";
   const details = doshaDetails[dosha];
   const scores: DoshaScores = location.state?.scores || {};
 
