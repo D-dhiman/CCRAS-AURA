@@ -1,0 +1,17 @@
+{
+  "name": "AyuCare Doctor Portal",
+  "short_name": "AyuCare",
+  "description": "Healthcare assistant for Ayurveda and wellness practitioners",
+  "start_url": "/doctor/home",
+  "display": "standalone",
+  "background_color": "#f7faf9",
+  "theme_color": "#2A9D8F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
