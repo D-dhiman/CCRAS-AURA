@@ -23,15 +23,46 @@ const ProfileSetup = () => {
   const navigate = useNavigate();
   const [selectedLifestyle, setSelectedLifestyle] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
+  const [age, setAge] = useState("");
+  const [city, setCity] = useState("");
+  const [error, setError] = useState("");
 
-  const handleContinue = (e: React.FormEvent) => {
+  const handleContinue = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dosha-quiz");
+    setError("");
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return setError("Authentication error");
+
+      const profileData = {
+        age: age ? parseInt(age) : null,
+        gender: selectedGender || null,
+        city: city || null,
+        lifestyle: selectedLifestyle || null,
+      };
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(profileData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return setError(data.message);
+
+      navigate("/dosha-quiz");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to update profile. Try again.");
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col px-6 py-8 bg-background">
-      {/* Header */}
       <motion.button
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -51,21 +82,26 @@ const ProfileSetup = () => {
         <h1 className="text-3xl font-display font-bold text-foreground">
           Tell us about yourself
         </h1>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
         <p className="mt-2 text-muted-foreground">
           We'll personalize your wellness experience
         </p>
 
         <form onSubmit={handleContinue} className="mt-8 space-y-6 flex-1">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Name</label>
-            <Input type="text" placeholder="Your name" />
-          </div>
-
+          {/* Age */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Age</label>
-            <Input type="number" placeholder="Your age" min="1" max="120" />
+            <Input
+              type="number"
+              placeholder="Your age"
+              min="1"
+              max="120"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+            />
           </div>
 
+          {/* Gender */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Gender (optional)</label>
             <div className="grid grid-cols-2 gap-2">
@@ -86,14 +122,22 @@ const ProfileSetup = () => {
             </div>
           </div>
 
+          {/* City */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">City</label>
             <div className="relative">
               <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input type="text" placeholder="Your city" className="pl-12" />
+              <Input
+                type="text"
+                placeholder="Your city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="pl-12"
+              />
             </div>
           </div>
 
+          {/* Lifestyle */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-foreground">Lifestyle</label>
             <div className="grid grid-cols-2 gap-3">
@@ -110,9 +154,11 @@ const ProfileSetup = () => {
                   }`}
                 >
                   <span className="text-2xl">{option.emoji}</span>
-                  <p className={`mt-2 text-sm font-medium ${
-                    selectedLifestyle === option.id ? "text-primary" : "text-foreground"
-                  }`}>
+                  <p
+                    className={`mt-2 text-sm font-medium ${
+                      selectedLifestyle === option.id ? "text-primary" : "text-foreground"
+                    }`}
+                  >
                     {option.label}
                   </p>
                 </motion.button>
@@ -121,12 +167,7 @@ const ProfileSetup = () => {
           </div>
 
           <div className="pt-4">
-            <Button
-              type="submit"
-              variant="wellness"
-              size="lg"
-              className="w-full"
-            >
+            <Button type="submit" variant="wellness" size="lg" className="w-full">
               Continue
             </Button>
           </div>

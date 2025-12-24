@@ -8,10 +8,37 @@ import { useState } from "react";
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // for error messages
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setError(""); // reset previous error
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        return;
+      }
+
+      // Save JWT token in localStorage
+      localStorage.setItem("token", data.token);
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -41,6 +68,7 @@ const Login = () => {
         </p>
 
         <form onSubmit={handleLogin} className="mt-8 space-y-4">
+          {/* Email */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Email</label>
             <div className="relative">
@@ -49,10 +77,13 @@ const Login = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="pl-12"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
 
+          {/* Password */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Password</label>
             <div className="relative">
@@ -61,6 +92,8 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 className="pl-12 pr-12"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -72,19 +105,14 @@ const Login = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="text-sm text-primary hover:underline"
-          >
+          {/* Error message */}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <button type="button" className="text-sm text-primary hover:underline">
             Forgot password?
           </button>
 
-          <Button
-            type="submit"
-            variant="wellness"
-            size="lg"
-            className="w-full mt-6"
-          >
+          <Button type="submit" variant="wellness" size="lg" className="w-full mt-6">
             Sign In
           </Button>
         </form>

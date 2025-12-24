@@ -3,28 +3,40 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import DoshaBadge from "@/components/DoshaBadge";
 import { Sparkles } from "lucide-react";
+import { useState } from "react";
 
 const doshaDetails = {
   vata: {
     title: "Vata Dominant",
     elements: "Air & Space",
-    description: "You have a creative, quick-thinking mind with natural enthusiasm. Vata types are known for their energy, flexibility, and innovative spirit. When balanced, you're lively, imaginative, and inspiring.",
-    qualities: ["Creative & Imaginative", "Quick Learner", "Energetic & Enthusiastic", "Flexible & Adaptable"],
-    tips: "Focus on grounding routines, warm foods, and calming practices to stay balanced.",
+    description:
+      "You have a creative, quick-thinking mind with natural enthusiasm. Vata types are known for their energy, flexibility, and innovative spirit. When balanced, you're lively, imaginative, and inspiring.",
+    qualities: [
+      "Creative & Imaginative",
+      "Quick Learner",
+      "Energetic & Enthusiastic",
+      "Flexible & Adaptable",
+    ],
+    tips:
+      "Focus on grounding routines, warm foods, and calming practices to stay balanced.",
   },
   pitta: {
     title: "Pitta Dominant",
     elements: "Fire & Water",
-    description: "You have a sharp intellect with natural leadership abilities. Pitta types are known for their determination, courage, and strong digestion. When balanced, you're focused, confident, and joyful.",
+    description:
+      "You have a sharp intellect with natural leadership abilities. Pitta types are known for their determination, courage, and strong digestion. When balanced, you're focused, confident, and joyful.",
     qualities: ["Sharp Intellect", "Natural Leader", "Strong Digestion", "Goal-Oriented"],
-    tips: "Focus on cooling practices, moderate exercise, and avoiding excessive heat to stay balanced.",
+    tips:
+      "Focus on cooling practices, moderate exercise, and avoiding excessive heat to stay balanced.",
   },
   kapha: {
     title: "Kapha Dominant",
     elements: "Earth & Water",
-    description: "You have a calm, nurturing nature with great endurance. Kapha types are known for their stability, loyalty, and compassion. When balanced, you're grounded, loving, and supportive.",
+    description:
+      "You have a calm, nurturing nature with great endurance. Kapha types are known for their stability, loyalty, and compassion. When balanced, you're grounded, loving, and supportive.",
     qualities: ["Calm & Stable", "Strong Endurance", "Compassionate", "Loyal & Supportive"],
-    tips: "Focus on stimulating activities, light foods, and regular exercise to stay balanced.",
+    tips:
+      "Focus on stimulating activities, light foods, and regular exercise to stay balanced.",
   },
 };
 
@@ -35,9 +47,39 @@ interface DoshaScores {
 const DoshaResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [error, setError] = useState("");
+
   const dosha = (location.state?.dominantDosha as "vata" | "pitta" | "kapha") || "vata";
-  const details = doshaDetails[dosha];
   const scores: DoshaScores = location.state?.scores || {};
+  const details = doshaDetails[dosha];
+
+  const handleGoToDashboard = async () => {
+    setError("");
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return setError("Authentication error");
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          dominantDosha: dosha,
+          doshaScores: scores,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return setError(data.message);
+
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save dosha data. Try again.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col px-6 py-8 bg-background overflow-hidden">
@@ -54,6 +96,9 @@ const DoshaResult = () => {
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col max-w-sm mx-auto w-full">
+        {/* Error */}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         {/* Celebration icon */}
         <motion.div
           initial={{ scale: 0 }}
@@ -89,9 +134,7 @@ const DoshaResult = () => {
           transition={{ delay: 0.6 }}
           className="mt-8"
         >
-          <p className="text-muted-foreground leading-relaxed text-center">
-            {details.description}
-          </p>
+          <p className="text-muted-foreground leading-relaxed text-center">{details.description}</p>
         </motion.div>
 
         {/* Qualities */}
@@ -147,7 +190,6 @@ const DoshaResult = () => {
           </div>
         </motion.div>
 
-
         {/* Tips */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -172,7 +214,7 @@ const DoshaResult = () => {
             variant="wellness"
             size="lg"
             className="w-full"
-            onClick={() => navigate("/dashboard")}
+            onClick={handleGoToDashboard}
           >
             Go to Dashboard
           </Button>
