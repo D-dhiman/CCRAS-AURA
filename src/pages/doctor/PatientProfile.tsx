@@ -1,12 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Phone, Droplet, Activity, User, FileText, PlusCircle, Leaf } from 'lucide-react';
-import { DoctorLayout } from '@/components/doctor/DoctorLayout';
-import { MedicalTimeline } from '@/components/doctor/MedicalTimeline';
-import { WellnessSection } from '@/components/doctor/WellnessSection';
-import { ConsultationForm } from '@/components/doctor/ConsultationForm';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { DoctorLayout } from '@/doc-components/doctor/DoctorLayout';
+import { MedicalTimeline } from '@/doc-components/doctor/MedicalTimeline';
+import { WellnessSection } from '@/doc-components/doctor/WellnessSection';
+import { ConsultationForm } from '@/doc-components/doctor/ConsultationForm';
+import { Badge } from '@/doc-components/ui/badge';
+import { Button } from '@/doc-components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/doc-components/ui/tabs';
 import { patients, patientRecords, wellnessConsiderations, Patient } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 
@@ -32,7 +32,7 @@ export default function PatientProfile() {
           <User className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4" />
           <h1 className="text-xl font-semibold text-foreground font-heading">Patient not found</h1>
           <p className="text-muted-foreground mt-2">The requested patient does not exist.</p>
-          <Link to="/doctor/patients">
+          <Link to="/patient-list">
             <Button className="mt-4">Back to Patients</Button>
           </Link>
         </div>

@@ -1,7 +1,7 @@
 import { Mail, Phone, Briefcase, LogOut, Shield, Bell, HelpCircle } from 'lucide-react';
-import { DoctorLayout } from '@/components/doctor/DoctorLayout';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { DoctorLayout } from '@/doc-components/doctor/DoctorLayout';
+import { Button } from '@/doc-components/ui/button';
+import { Separator } from '@/doc-components/ui/separator';
 import { currentDoctor } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
 

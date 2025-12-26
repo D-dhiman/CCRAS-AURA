@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { icon: Home, label: 'Home', path: '/doctor/home' },
-  { icon: Users, label: 'Patients', path: '/doctor/patients' },
-  { icon: Search, label: 'Search', path: '/doctor/patients?search=true' },
-  { icon: User, label: 'Profile', path: '/doctor/profile' },
+  { icon: Home, label: 'Home', path: '/doctor-home' },
+  { icon: Users, label: 'Patients', path: '/patient-list' },
+  { icon: Search, label: 'Search', path: '/patient-list?search=true' },
+  { icon: User, label: 'Profile', path: '/doctor-profile' },
 ];
 
 export function BottomNav() {

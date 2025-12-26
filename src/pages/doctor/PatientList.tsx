@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Search, UserPlus, Filter } from 'lucide-react';
-import { DoctorLayout } from '@/components/doctor/DoctorLayout';
-import { PatientCard } from '@/components/doctor/PatientCard';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { DoctorLayout } from '@/doc-components/doctor/DoctorLayout';
+import { PatientCard } from '@/doc-components/doctor/PatientCard';
+import { Input } from '@/doc-components/ui/input';
+import { Button } from '@/doc-components/ui/button';
+import { Badge } from '@/doc-components/ui/badge';
 import { patients, Patient } from '@/data/mockData';
 
 const stages: Patient['currentStage'][] = ['Acute', 'Post-operation', 'Recovery', 'Chronic', 'Stable'];

@@ -4,6 +4,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
+console.log("DB_PASSWORD type:", typeof process.env.DB_PASSWORD);
+console.log("ALL ENV KEYS:", Object.keys(process.env).filter(k => k.startsWith("DB_")));
+
 const { Pool } = pkg;
 
 const pool = new Pool({

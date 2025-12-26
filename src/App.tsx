@@ -19,6 +19,13 @@ import ProfileSettings from "./pages/ProfileSettings";
 import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 
+// Doctor pages
+import DoctorHome from "./pages/doctor/DoctorHome";
+import DoctorProfile from "./pages/doctor/DoctorProfile";
+import PatientList from "./pages/doctor/PatientList";
+import PatientProfile from "./pages/doctor/PatientProfile";
+
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -42,6 +49,13 @@ const App = () => (
           <Route path="/insights" element={<Insights />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/install" element={<Install />} />
+
+           {/* Doctor routes */}
+          <Route path="/doctor-home" element={<DoctorHome />} />
+          <Route path="/doctor-profile" element={<DoctorProfile />} />
+          <Route path="/patient-list" element={<PatientList />} />
+          <Route path="/doctor/patient/:patientId" element={<PatientProfile />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

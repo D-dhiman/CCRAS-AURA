@@ -34,7 +34,11 @@ const Login = () => {
       localStorage.setItem("token", data.token);
 
       // Redirect to dashboard
-      navigate("/dashboard");
+      if (data.user.role === "doctor") {
+        navigate("/doctor-home"); // Doctor page
+      } else {
+        navigate("/dashboard"); // Regular user page
+      }
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
