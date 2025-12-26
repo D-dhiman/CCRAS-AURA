@@ -87,14 +87,14 @@ const Welcome = () => {
           transition={{ delay: 1 }}
           className="w-full mt-12 space-y-4"
         >
-          <Button
+          {/* <Button
             variant="wellness"
             size="xl"
             className="w-full"
             onClick={() => navigate("/signup")}
           >
             Get Started
-          </Button>
+          </Button> */}
           <Button
             variant="outline"
             size="xl"
