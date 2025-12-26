@@ -5,6 +5,7 @@ from app.api.food import router as food_router
 from app.api.health import router as health_router
 from app.api.yoga import router as yoga_router
 from app.api.insights import router as insights_router
+from app.api import doctor
 
 app = FastAPI(title="AURA Backend")
 
@@ -17,3 +18,4 @@ app.include_router(food_router)
 app.include_router(health_router)
 app.include_router(yoga_router)
 app.include_router(insights_router)
+app.include_router(doctor.router)
